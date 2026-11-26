@@ -4,3 +4,7 @@ jars/
 runtime/target/
 harness/res/
 harness/node_modules/
+__pycache__/
+bench/build/
+bench/out/
+bench/rust/target/

@@ -1,0 +1,12 @@
+[package]
+name = "html-bench"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+scraper = "0.23"
+url = "2"
+
+[profile.release]
+opt-level = 3
+lto = true
