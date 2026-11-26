@@ -1,0 +1,37 @@
+name: Nightly
+
+# Translates new and updated Keiyoushi extensions to JavaScript and uploads them to Project Exia's mirror.
+on:
+  schedule:
+    - cron: "0 8 * * *" # 08:00 UTC, 3 AM in New York
+  workflow_dispatch:
+    inputs:
+      langs:
+        description: "Only these languages (comma-separated), blank for all"
+        required: false
+        default: ""
+
+concurrency:
+  group: nightly
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # the engine version is the last commit that touched runtime/ or translator/
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+          cache: maven
+          cache-dependency-path: |
+            runtime/pom.xml
+            translator/pom.xml
+      - name: Translate and upload
+        env:
+          EXIA_MIHON_UPLOAD_TOKEN: ${{ secrets.EXIA_MIHON_UPLOAD_TOKEN }}
+        run: python3 tools/publish.py --jobs 4 --langs "${{ github.event.inputs.langs }}"

@@ -1,0 +1,6 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"><modelVersion>4.0.0</modelVersion>
+<groupId>exia</groupId><artifactId>driver</artifactId><version>0.1</version>
+<dependencies>
+<dependency><groupId>org.teavm</groupId><artifactId>teavm-tooling</artifactId><version>0.17.0</version></dependency>
+<dependency><groupId>org.ow2.asm</groupId><artifactId>asm</artifactId><version>9.8</version></dependency>
+</dependencies></project>
